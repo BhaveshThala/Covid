@@ -1,0 +1,19 @@
+.cmodal{
+    background-color: #222120;
+    background-image: url(https://cdn.wp.nginx.com/wp-content/themes/nginx-theme/assets/img/tiles/datalines-black.png);
+}
+
+.form-control{
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.form-control:focus{
+    background: transparent;
+    color: white;
+}
+
+label{
+    color: white;
+}

@@ -1,0 +1,35 @@
+.high{
+    border: 2px solid white;
+    border-radius: 7px;
+}
+.custom{
+    padding: 10px;
+}
+.one{
+    background-color: red;
+    color: white;
+}
+.two{
+    background-color: violet;
+    color: white;
+}
+.three{
+    background-color: lightgreen;
+    color: blue;
+}
+
+.anim{
+    animation: first 2s linear;
+}
+.anim:hover{
+    animation: first 2s linear;
+}
+
+@keyframes first{
+    0%{
+        transform: rotateY(0deg)
+    }
+    50%{
+        transform: rotateY(180deg);
+    }
+}
