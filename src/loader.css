@@ -4,3 +4,6 @@
     flex-direction: column;
     height: 80vh;
 }
+::placeholder{
+    color: white;
+}

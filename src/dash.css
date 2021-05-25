@@ -17,19 +17,25 @@
     background-color: lightgreen;
     color: blue;
 }
-
-.anim{
-    animation: first 2s linear;
+.set{
+    height: 202px;
 }
-.anim:hover{
-    animation: first 2s linear;
+.card-body{
+    height: 100%;
+    background-color: #222120;
+    background-image: url(https://cdn.wp.nginx.com/wp-content/themes/nginx-theme/assets/img/tiles/datalines-black.png);
+    color: white;
 }
-
-@keyframes first{
-    0%{
-        transform: rotateY(0deg)
-    }
-    50%{
-        transform: rotateY(180deg);
-    }
-}
+.feed {
+    background-color : #232626;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border-color: #46b8da;
+  }
+  
+  #my {
+    position: fixed;
+    bottom: 4px;
+    left: 10px;
+  }

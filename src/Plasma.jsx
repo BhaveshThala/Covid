@@ -19,8 +19,16 @@ class Plasma extends Component {
             blood: '',
             pin: [],
             result: [],
+            dDate:'',
             loading: true
         }
+    }
+
+    setDate(event)
+    {
+        this.setState({
+            dDate:event.target.value
+        })
     }
 
     setName(event) {
@@ -65,7 +73,6 @@ class Plasma extends Component {
         })
         document.getElementById("st").value = this.state.state
         document.getElementById("ds").value = this.state.district
-
     }
 
     setAadhaar(event) {
@@ -89,14 +96,10 @@ class Plasma extends Component {
             District: this.state.district,
             Aadhaar: this.state.aadhaar,
             Blood: this.state.blood,
-            Zipcode: this.state.zipcode
+            Zipcode: this.state.zipcode,
+            donationDate:this.state.dDate
         }
-        axios.post("http://localhost:9000/plasma", record)
-            .then((res) => {
-            }).catch((err) => {
-                console.log(err)
-            })
-        axios.get("http://localhost:9000/")
+        axios.post("https://serveshop.xyz//plasma", record)
             .then((res) => {
                 this.setState({
                     result: res.data,
@@ -104,14 +107,18 @@ class Plasma extends Component {
                 document.getElementById("dataform").reset()
                 document.getElementById("close").click()
                 alert("Data Stored")
-            })
-            .catch((err) => {
+            }).catch((err) => {
                 console.log(err)
             })
     }
 
+    search()
+    {
+        document.getElementById("search").reset()
+    }
+
     componentDidMount() {
-        axios.get("http://localhost:9000/")
+        axios.get("https://serveshop.xyz/")
             .then((res) => {
                 this.setState({
                     result: res.data,
@@ -123,8 +130,31 @@ class Plasma extends Component {
             })
     }
 
-
-
+    filters() {
+        var input, filter, table, tr, td, txtValue, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (j = 0; j < tr.length; j++) {
+            td = tr[j]
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[j].style.display = "";
+                } else {
+                    tr[j].style.display = "none";
+                }
+            }
+        }
+    }
+    travel()
+    {
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
+    }
     render() {
         if (this.state.loading) {
             return <Loader />
@@ -136,12 +166,12 @@ class Plasma extends Component {
                         <label style={{ color: 'white' }}>
                             If you are recovered from Covid-19 and want to help others by donating your plasma please.
                         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                 Click Here..
                             </button>
                         </label>
                         <label style={{ color: 'white' }}>
-                            if you are a Women Donar don't fill your phone number.Use your email id instead of your number in the Phone Number Box.
+                            if you are a Women Donor don't fill your phone number.Use your email id instead of your number in the Phone Number Box.
                         </label>
                         <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
@@ -186,6 +216,10 @@ class Plasma extends Component {
                                                 <label>Enter Blood Group:</label>
                                                 <input type="text" style={{ textTransform: 'uppercase' }} onChange={this.setBlood.bind(this)} className="form-control" required />
                                             </div>
+                                            <div className="form-group">
+                                                <label>Last Date of Donation:</label>
+                                                <input type="date"  onChange={this.setDate.bind(this)} className="form-control" required />
+                                            </div>
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" id="close" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -199,6 +233,40 @@ class Plasma extends Component {
                 </div>
                 <div className="container-fluid">
                     <div className="row" style={{ padding: '15px' }}>
+                        <div className="modal fade" id="filter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                <div className="modal-content cmodal">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style={{color:'white'}}>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <form id="search">
+                                            <div className="form-group">
+                                                    <label>Enter any field:</label>
+                                                    <input type="text" id="myInput" onKeyUp={this.filters} className="form-control" required />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" onClick={this.search.bind(this)} className="btn btn-primary">Reset</button>
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mybutton">
+                        <button className="feedback" data-toggle="modal" data-target="#filter"><i className="fa fa-search"></i></button>
+                    </div>
+                    <div id="my">
+                        <button className="feed" onClick={this.travel.bind(this)}><i className="fa fa-arrow-up"></i></button>
+                    </div>
+                </div>
+                <div className="container-fluid">
+                    <div className="row" style={{ padding: '15px' }}>
                         <div className="col-lg-12">
                             <div className="table-responsive">
                                 <table className="table table-bordered table-hover table-striped">
@@ -207,19 +275,21 @@ class Plasma extends Component {
                                             <th scope="col">Name</th>
                                             <th scope="col">Contact</th>
                                             <th scope="col">Blood Group</th>
+                                            <th scope="col">Last Donated Date</th>
                                             <th scope="col">Addresss</th>
                                             <th scope="col">State</th>
                                             <th scope="col">District</th>
                                             <th scope="col">Zipcode</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="myTable">
                                         {
                                             this.state.result.map((demo, i) =>
                                                 <tr key={i + 800}>
                                                     <td key={i + 100} style={{ color: 'white' }}>{demo.Name}</td>
                                                     <td key={i + 200} style={{ color: 'white' }}>{demo.Contact}</td>
                                                     <td key={i + 300} style={{ color: 'white' }}>{demo.Blood}</td>
+                                                    <td key={i + 800} style={{ color: 'white' }}>{demo.donationDate}</td>
                                                     <td key={i + 400} style={{ color: 'white' }}>{demo.Address}</td>
                                                     <td key={i + 500} style={{ color: 'white' }}>{demo.States}</td>
                                                     <td key={i + 600} style={{ color: 'white' }}>{demo.District}</td>

@@ -3,7 +3,12 @@ import axios from 'axios';
 import './dash.css'
 import Alert from './Alert';
 import Loader from './Loader';
-
+import c1 from './c1.jpg';
+import c2 from './c2.jpg';
+import c3 from './c3.jpg';
+import c4 from './c4.jpg';
+import c5 from './c5.jpg';
+import c6 from './c6.jpg';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -24,11 +29,19 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        /*axios.get("https://api.covidbedsindia.in/v1/storages/6089834e03eef33448d05a74/Haryana")
+            .then((res)=>
+            {
+                console.log(res.data[99].HOSPITAL_INFO.split("Availability of Oxygen:")[0].split("Allocated Beds:")[1].split(", Ventilators: ")[0].split("ICU: ")[1])
+            }).catch((err)=>
+            {
+
+        })*/
         axios.get("https://api.rootnet.in/covid19-in/stats/latest")
             .then((res) => {
                 this.setState({
                     result: res.data,
-                    loading:false
+                    loading: false
                 })
                 this.setState({
                     total: this.state.result.data.summary.total,
@@ -44,13 +57,19 @@ class Dashboard extends Component {
                 })
             })
             .catch((err) => {
-              console.log(err)
-        })
-
+                console.log(err)
+            })
+    }
+    travel()
+    {
+        window.scrollTo({
+            top: 0, 
+            behavior: 'smooth'
+        });
     }
     render() {
         if (this.state.loading) {
-            return <Loader/>
+            return <Loader />
         }
         return (
             <div className="container-fluid" style={{ marginTop: '95px' }}>
@@ -62,76 +81,115 @@ class Dashboard extends Component {
                 <Alert />
                 <div className="row">
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header one">
-                                Total Cases:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                    width='500'
+                                    src={c1}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.total}</p>
+                                <h5 className="card-title">Total Cases:</h5>
+                                <p className="card-text">
+                                   {this.state.total}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header two">
-                                Confirm Cases:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                 width='500'
+                                    src={c2}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.confirm}</p>
+                                <h5 className="card-title">Confirmed Cases:</h5>
+                                <p className="card-text">
+                                    {this.state.confirm}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header three">
-                                Foreign Cases:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                    width='500'
+                                    src={c3}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.foreign}</p>
+                                <h5 className="card-title">Foreign Cases:</h5>
+                                <p className="card-text">
+                                    {this.state.foreign}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="row" style={{ marginTop: '10px' }}>
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header two">
-                                Active Cases:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                 width='500'
+                                    src={c4}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.active}</p>
+                                <h5 className="card-title">Active Cases:</h5>
+                                <p className="card-text">
+                                    {this.state.active}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header three">
-                                Recovered Cases:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                    width='500'
+                                    height='202'
+                                    src={c5}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.recover}</p>
+                                <h5 className="card-title">Recovered Cases:</h5>
+                                <p className="card-text">
+                                    {this.state.recover}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className="col-sm-4 custom">
-                        <div className="card text-center anim">
-                            <div className="card-header one">
-                                Deaths:
+                        <div className="card text-center">
+                            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img
+                                    width='500'
+                                    height='202'
+                                    src={c6}
+                                    className="img-fluid set" alt=""
+                                />
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title">Stay Home Stay Safe</h5>
-                                <p className="card-text">{this.state.deaths}</p>
+                                <h5 className="card-title">Death Count:</h5>
+                                <p className="card-text">
+                                    {this.state.deaths}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div id="my">
+                        <button className="feed" onClick={this.travel.bind(this)}><i className="fa fa-arrow-up"></i></button>
                     </div>
                 </div>
             </div>
